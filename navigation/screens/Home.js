@@ -18,10 +18,10 @@ const Home = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#143442" },
+    container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#0084C2" },
     title: { fontSize: 30, color: '#fff' },
     image: {width:300, height:300,resizeMode:'contain',overflow:'hidden'},
-    button1:{backgroundColor: '#19DDFF', padding: 7, marginTop:10},
+    button1:{backgroundColor: '#19DDFF', padding: 7, marginTop:10}, 
     buttonText: {color: '#AD4E00', fontSize: 20}
   })
 export default Home
