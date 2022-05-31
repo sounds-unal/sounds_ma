@@ -8,7 +8,7 @@ if (Constants.manifest.debuggerHost) {
 }
 const ENV = {
     dev: {
-        API_URL: `http://127.0.0.1:5000/graphiql`
+        API_URL: `http://${localhost}:5000/graphql`
     },
     prod: {
         API_URL: 'https://xvgqlapi.herokuapp.com/api'
@@ -18,7 +18,6 @@ const ENV = {
 const getEnvVars = (env = Constants.manifest.releaseChannel) => {
     // __DEV__ is set to true when react-native is running locally in dev mode
     // __DEV__ is set to false when our app is published
-   
         return ENV.dev;
     };
 
