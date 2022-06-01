@@ -1,8 +1,9 @@
 import { Text, View, StyleSheet, Image, TouchableOpacity , Screen,Alert} from 'react-native'
 import logo1 from '../../assets/Sounds_logo.png'
 import React from 'react'
-import SingInModal from '../../src/components/SingInModal'
+import SingInModal, {values} from '../../src/components/SingInModal'
 import SingUpModal from '../../src/components/SingUpModal'
+import WaitModal from '../../src/components/waitModal'
 
 const state = {
   optionModalVisible: false
@@ -10,6 +11,7 @@ const state = {
 const Home = ({ navigation }) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalVisibleUp, setModalVisibleUp] = React.useState(false);
+  const [modalVisibleWait, setModalVisibleWait] = React.useState(false);
   return (
       <>
     <View style={styles.container}>
@@ -22,9 +24,9 @@ const Home = ({ navigation }) => {
         style={styles.button1}  >
         <Text style={styles.buttonText}>Registrate</Text>
       </TouchableOpacity>
-      <SingInModal visible={modalVisible} setVisible={setModalVisible} 
-    />
+      <SingInModal visible={modalVisible} setVisible={setModalVisible} setVisibleWait={setModalVisibleWait}/>
       <SingUpModal visible={modalVisibleUp} setVisible={setModalVisibleUp} navigation={navigation}/>
+      <WaitModal visible={modalVisibleWait} setVisible={setModalVisibleWait} user={values.user} password={values.password} navigation={navigation} />
     </View>
     
     </>

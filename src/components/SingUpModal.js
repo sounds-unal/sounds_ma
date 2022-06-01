@@ -34,7 +34,7 @@ const SingUpModal = ({visible, setVisible, navigation}) => {
     /> 
     <Button 
       title="Sign Up"
-      onPress={() => sendData(user,password, navigation)} 
+      onPress={() => {setVisible(false), sendData(user,password, navigation)}} 
       isDisabled={'lol'}
       isLoading={'loading ....'}
     />
@@ -46,7 +46,7 @@ const SingUpModal = ({visible, setVisible, navigation}) => {
 
 export function sendData(user, password, navigation){ 
     console.log(user, '  ', password)
-    navigation.navigate('Play')
+
 }
 
  export default SingUpModal

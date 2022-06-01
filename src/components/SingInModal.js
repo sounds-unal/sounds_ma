@@ -4,14 +4,15 @@ import color from '../misc/color'
 import {Query, useQuery, GraphQLRequest,gql, useMutation} from '@apollo/client'
 import { client } from './../graphql/Client';
 
-const values = {
+export const values = {
   user: '',
   password: '',
 };
 
 
 
-const SingInModal = ({visible, setVisible}) => {
+const SingInModal = ({visible, setVisible, setVisibleWait}) => {
+  
   const [user, userin] = React.useState()
   const [password, passin] = React.useState()
   return (
@@ -37,7 +38,7 @@ const SingInModal = ({visible, setVisible}) => {
     /> 
     <Button 
       title="Sign in"
-      onPress={() => {values.user=user,values.password=password,{sendData}, console.log("si entra")}} 
+      onPress={() => {values.user=user,values.password=password,setVisibleWait(true),setVisible(false) }} 
       isDisabled={'lol'}
       isLoading={'loading ....'}
     />
@@ -47,8 +48,9 @@ const SingInModal = ({visible, setVisible}) => {
   ) 
 }
 
-const sendData = ()=>{    //Send values of authentication
+const sendData = (client)=>{    //Send values of authentication
   console.log(values.user, '  ', values.password)
+  try{
   const data = useMutation( gql`
   mutation {
     loginUser(usuario: {
@@ -57,8 +59,7 @@ const sendData = ()=>{    //Send values of authentication
     }) {
       Token
     }
-  }`);
-
+  }`)
   if (data.loading  ) {
     console.log("cargando")
     //return <Text>Cargando ..... </Text>
@@ -69,7 +70,11 @@ const sendData = ()=>{    //Send values of authentication
   }
   return (
     console.log("si pasó ")
-  )
+  )}catch(e){
+    console.log(e)
+  }
+
+  
 }
 
  export default SingInModal
