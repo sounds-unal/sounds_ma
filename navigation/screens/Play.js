@@ -3,12 +3,16 @@ import React from 'react'
 import {Query, useQuery, GraphQLRequest,gql} from '@apollo/client'
 import {Audio} from 'expo-av'
 import AudioListItem from '../../src/components/AudioListItem'
+import {BusquedaContext} from '../MainStack'
+
 
 const state={
   playbackObj: null,
   soundObj: null,
   currentAudio: {},
 }
+
+
 
 const Play = ( {navigation} ) => {
   
@@ -72,8 +76,7 @@ const playTrack = async audio => {
     
   }
 
-export  function  getsongs(){
-
+export  function  getsongs(setVisible){
     const data = useQuery( gql`
     query callsongs{
     update{
@@ -84,9 +87,11 @@ export  function  getsongs(){
       artist
       
     }}`);
+
+    
     if (data.loading  ) {
+      return <Text>cargando ...</Text>
       
-      return <Text>Cargando ..... </Text>
     }
     if (data.error){
       console.log('Error al conectar a la base: ', data.error)

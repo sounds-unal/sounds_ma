@@ -11,12 +11,13 @@ const state = {
 const Home = ({ navigation }) => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [modalVisibleUp, setModalVisibleUp] = React.useState(false);
-  const [modalVisibleWait, setModalVisibleWait] = React.useState(false);
+  const [modalVisibleWait, setModalVisibleWait]= React.useState(false);
+  const [tipo, setTipo] = React.useState('');
   return (
       <>
     <View style={styles.container}>
       <Image source={logo1} style={styles.image}/>
-      <TouchableOpacity  onPress={ ()=> { setModalVisible(true)}}
+      <TouchableOpacity  onPress={ ()=> { setTipo('log'), setModalVisible(true)}}
         style={styles.button1}      >
         <Text style={styles.buttonText}>Ingresar</Text>
       </TouchableOpacity>
@@ -24,9 +25,9 @@ const Home = ({ navigation }) => {
         style={styles.button1}  >
         <Text style={styles.buttonText}>Registrate</Text>
       </TouchableOpacity>
-      <SingInModal visible={modalVisible} setVisible={setModalVisible} setVisibleWait={setModalVisibleWait}/>
+      <SingInModal visible={modalVisible} setVisible={setModalVisible} setVisibleWait={setModalVisibleWait} tipo={setTipo} />
       <SingUpModal visible={modalVisibleUp} setVisible={setModalVisibleUp} navigation={navigation}/>
-      <WaitModal visible={modalVisibleWait} setVisible={setModalVisibleWait} user={values.user} password={values.password} navigation={navigation} />
+      <WaitModal visible={modalVisibleWait} setVisible={setModalVisibleWait} user={values.user} tipo={tipo} password={values.password}  navigation={navigation} />
     </View>
     
     </>
@@ -35,19 +36,7 @@ const Home = ({ navigation }) => {
   )
 }
 
-const modals = async navigation  => {
-  if (state.optionModalVisible){
-  console.log("en el true")
-   state.optionModalVisible = false
-   Home(navigation)
 
-
-  }else {
-    console.log("en el false")
-    state.optionModalVisible = true
-     }
-  
-}
 
 const styles = StyleSheet.create({
     container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#0084C2" },

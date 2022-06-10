@@ -8,11 +8,12 @@ import Play from './screens/Play'
 import client from './../src/graphql/Client'
 
 
-
 const Stack = createNativeStackNavigator()
 
 const MainStack = () => {
+  
   return (
+    
     <NavigationContainer>
       
         <Stack.Navigator
@@ -22,7 +23,8 @@ const MainStack = () => {
         >
             <Stack.Screen 
             name='Home'
-            component={Home}/>
+            component={Home}
+            />
 
             <Stack.Screen 
             name='Play'
@@ -30,7 +32,6 @@ const MainStack = () => {
         </Stack.Navigator>
        
     </NavigationContainer>
-    
     
   )
 }

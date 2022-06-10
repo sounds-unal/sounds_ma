@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, Image} from 'react-native'
+import { StyleSheet, Text, View, Modal, Image, Alert} from 'react-native'
 import React from 'react'
 import color from '../misc/color'
 import {Query, useQuery, GraphQLRequest,gql, useMutation} from '@apollo/client'
@@ -11,7 +11,7 @@ const values = {
 
 
 
-const WaitModal = ({visible, setVisible,user, password, navigation}) => {
+const WaitModal = ({visible, setVisible,user, password,tipo, navigation}) => {
   
   return (
     
@@ -23,7 +23,7 @@ const WaitModal = ({visible, setVisible,user, password, navigation}) => {
         <View style={styles.modalView} >
         <Image transparent={true} source={logo2} style={styles.image}/>
         <Text style={styles.text}>Cargando ...</Text>
-        {sendData(user,password, visible,setVisible, navigation)}
+        {sendData(user,password, tipo,visible, setVisible, navigation)}
       </View>
       </View>
       
@@ -31,33 +31,46 @@ const WaitModal = ({visible, setVisible,user, password, navigation}) => {
   ) 
 }
 
-const sendData = (user,password,visible,setVisible,navigation)=>{    //Send values of authentication
-  if(visible){
-    console.log(user, '  ', password)
-  const data = useMutation( gql`
-  mutation {
-    loginUser(usuario: {
-      Email: "${user}", 
-      Password: "${password}" 
-    }) {
-      Token
+const sendData = (user,password,tipo,visible, setVisible,navigation)=>{    //Send values of authentication
+  if(tipo== 'in' && visible){
+    const data = useMutation( gql`
+    mutation {
+      loginUser(usuario: {
+        email: "${user}", 
+        password: "${password}" 
+      }) {
+        Token
+      }
+    }`)
+    if (data.loading  ) {
+      console.log("cargando")
+      //return <Text>Cargando ..... </Text>
     }
-  }`)
-  if (data.loading  ) {
-    console.log("cargando")
-    //return <Text>Cargando ..... </Text>
-  }
-  if (data.error){
-    console.log(data.error)
-    //return <Text>Ocurrió un error </Text>
-  }
-  return (
-    console.log("si pasó "),
-    setVisible(false),
-    navigation.navigate('Play')
-  )
-}
-  
+    if (data.error){
+      console.log(data.error)
+      //return <Text>Ocurrió un error </Text>
+    }
+    if (data.data){
+      return (
+        setVisible(false),
+        navigation.navigate('Play')
+      )
+    }else {
+      return(
+        
+        /*Alert.alert(
+          "Datos incorrectos",
+          "Si no tienes cuenta registrate en la opción singup"
+        )*/navigation.navigate('Play'),
+        setVisible(false)
+      )
+    }
+    
+  }else if(tipo == 'up' && visible){
+  console.log("en up")
+  setVisible(false)
+} 
+setVisible(false)
 }
 
  export default WaitModal
